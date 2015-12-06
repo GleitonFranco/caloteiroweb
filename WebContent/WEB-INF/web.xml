@@ -20,4 +20,8 @@
   <error-page>
   	<location>/error-default.html</location>
   </error-page>
+  <context-param>
+   	<param-name>racadog</param-name>
+   	<param-value>vira-lata</param-value>
+  </context-param>
 </web-app>

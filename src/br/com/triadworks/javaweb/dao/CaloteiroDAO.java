@@ -14,8 +14,8 @@ import br.com.triadworks.javaweb.modelo.Caloteiro;
 public class CaloteiroDAO {
 	private Connection conexao;
 
-	public CaloteiroDAO() {
-		this.conexao = new ConnectionFactory().getConnection();
+	public CaloteiroDAO(Connection connection) {
+		this.conexao = connection;
 	}
 	
 	public void adiciona(Caloteiro caloteiro) {
@@ -47,7 +47,7 @@ public class CaloteiroDAO {
 				caloteiro.setDevendo(rs.getInt("devendo"));
 				
 				Calendar data = Calendar.getInstance();
-				data.setTime(rs.getDate("dataDivida"));
+				data.setTime(rs.getDate("datadivida"));
 				caloteiro.setDataDivida(data);
 				
 				caloteiros.add(caloteiro);

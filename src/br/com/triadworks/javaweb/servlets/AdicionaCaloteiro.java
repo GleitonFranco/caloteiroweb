@@ -23,7 +23,7 @@ import br.com.triadworks.javaweb.modelo.Caloteiro;
 @WebServlet("/adicionaCaloteiro")
 public class AdicionaCaloteiro extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -49,9 +49,8 @@ public class AdicionaCaloteiro extends HttpServlet {
 		c.setEmail(email);
 		c.setDataDivida(dataConvertida);
 		
-		CaloteiroDAO dao = new CaloteiroDAO();
-		dao.adiciona(c);
-		
+//		CaloteiroDAO dao = new CaloteiroDAO();
+//		dao.adiciona(c);
 		RequestDispatcher rd = request.getRequestDispatcher("/caloteiro-adicionado.jsp");
 		rd.forward(request, response);
 		

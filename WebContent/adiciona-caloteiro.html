@@ -7,13 +7,18 @@
 </head>
 <body>
 	<h1>Adiciona Caloteiro</h1>
-	<form action="adicionaCaloteiro">
-		<input type="hidden" name="logica" value="AdicionarCaloteiro" />
+	<form action="sistema" method="post">
+		<input type="hidden" name="acao" value="AdicionarCaloteiro" />
 		Nome: <input type="text" name="nome"/> </br>
 		E-mail: <input type="text" name="email"/> </br>
-		Devendo: <input type="text" name="devendo"/> </br>
-		Data: <input type="text" name="dataDivida"/> </br>
+		Devendo: <input type="text" name="devendo" id="labelDevendo" class="money"/> </br>
+		Data: <input type="text" name="dataDivida" id="labelData"/> </br>
 		<input type="submit" value="Salvar"/>
 	</form>
 </body>
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="js/jquery.maskMoney.min.js"></script>
+<script type="text/javascript" src="js/jquery.inputmask.bundle.min.js"></script>
+<script type="text/javascript" src="js/jquery-validate.min.js"></script>
+<script type="text/javascript" src="js/mascara.js"></script>
 </html>

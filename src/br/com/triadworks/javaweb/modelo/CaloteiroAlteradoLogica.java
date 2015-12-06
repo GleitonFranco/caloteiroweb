@@ -1,6 +1,7 @@
 package br.com.triadworks.javaweb.modelo;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -19,7 +20,8 @@ public class CaloteiroAlteradoLogica implements Logica {
 	@Override
 	public void executa(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		CaloteiroDAO dao = new CaloteiroDAO();
+		Connection connection = (Connection)request.getAttribute("connection");
+		CaloteiroDAO dao = new CaloteiroDAO(connection);
 		Caloteiro c = dao.getCaloteiro(Long.parseLong(request.getParameter("labelID")));
 		Calendar dataConvertida = converteStringParaData(request.getParameter("dataDivida"));
 		c.setNome(request.getParameter("nome"));

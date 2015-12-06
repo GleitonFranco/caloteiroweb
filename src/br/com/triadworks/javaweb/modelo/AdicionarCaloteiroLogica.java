@@ -1,6 +1,7 @@
 package br.com.triadworks.javaweb.modelo;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -14,12 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.triadworks.javaweb.dao.CaloteiroDAO;
 import br.com.triadworks.javaweb.servlets.CaloteiroServletException;
 
-public class AdicionaCaloteiroLogica implements Logica {
+public class AdicionarCaloteiroLogica implements Logica {
 
 	@Override
 	public void executa(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		CaloteiroDAO dao = new CaloteiroDAO();
+		Connection connection = (Connection)request.getAttribute("connection");
+		CaloteiroDAO dao = new CaloteiroDAO(connection);
 		String nome = request.getParameter("nome");
 		String email = request.getParameter("email");
 		String devendo = request.getParameter("devendo");
@@ -28,11 +30,12 @@ public class AdicionaCaloteiroLogica implements Logica {
 		
 		Caloteiro c = new Caloteiro();
 		c.setNome(nome);
-		c.setDevendo(Integer.parseInt(devendo));
+		int i = (int)Double.parseDouble(devendo.replace(",", ""));
+		c.setDevendo(i );
 		c.setEmail(email);
 		c.setDataDivida(dataConvertida);
 		
-		if (c.getId()!=null) dao.adiciona(c);
+		if (c.getId()==null) dao.adiciona(c);
 		else dao.altera(c);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/caloteiro-adicionado.jsp");
@@ -42,7 +45,12 @@ public class AdicionaCaloteiroLogica implements Logica {
 	private Calendar converteStringParaData(String dataDivida) throws CaloteiroServletException {
 		Calendar dataConvertida=null;
 		try {
-			Date data= new SimpleDateFormat("dd/MM/yyyy").parse(dataDivida);
+			Date data = null;
+			if (dataDivida==null || dataDivida=="") {
+				data = new Date();
+			} else {
+				data= new SimpleDateFormat("dd/MM/yyyy").parse(dataDivida);
+			}
 			dataConvertida = Calendar.getInstance();
 			dataConvertida.setTimeInMillis(data.getTime());
 		} catch (ParseException e) {

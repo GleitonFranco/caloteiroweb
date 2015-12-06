@@ -29,7 +29,7 @@ public class FiltroTempo implements Filter {
 		String url = ((HttpServletRequest)request).getRequestURL().toString();
 		chain.doFilter(request, response);
 		long tempoFinal = System.currentTimeMillis();
-		System.out.println("Requisição para: "+uri+" foi de: "+ (tempoFinal - tempoInicial));
+		System.out.println("Requisição para: "+uri+" foi de: "+ (tempoFinal - tempoInicial)+" ms");
 		System.out.println("E para: "+url);
 	}
 
